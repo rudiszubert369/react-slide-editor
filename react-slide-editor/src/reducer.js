@@ -1,7 +1,7 @@
 export const initialState = [
-    { id: 1, name: "Element 1", inputs: [{ id: 1, value: "" }, { id: 2, value: "" }] },
-    { id: 2, name: "Element 2", inputs: [{ id: 1, value: "" }, { id: 2, value: "" }] },
-    { id: 3, name: "Element 3", inputs: [{ id: 1, value: "" }, { id: 2, value: "" }] },
+    { id: 1, name: "Element 1", inputs: [{ id: 1, value: "" }, { id: 2, value: "" }], icon: 'airline_seat_legroom_reduced' },
+    { id: 2, name: "Element 2", inputs: [{ id: 1, value: "" }, { id: 2, value: "" }], icon: 'airline_seat_legroom_reduced' },
+    { id: 3, name: "Element 3", inputs: [{ id: 1, value: "" }, { id: 2, value: "" }], icon: 'airline_seat_legroom_reduced' },
   ];
   
   export function reducer(state, action) {
@@ -28,6 +28,15 @@ export const initialState = [
         const [removed] = newState.splice(sourceIndex, 1);
         newState.splice(destinationIndex, 0, removed);
         return newState;
+      case "editIcon":
+        const { elementId: iconElementId, icon } = action;
+        console.log(icon)
+        return state.map((element) => {
+          if (element.id === iconElementId) {
+            return { ...element, icon };
+          }
+          return element;
+        });
       default:
         return state;
     }

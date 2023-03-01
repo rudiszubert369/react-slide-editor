@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useDrag, useDrop } from 'react-dnd';
 import { AppContext } from '../App';
+import Icon from './Icon';
 
 const ElementContainer = styled.div`
   border: 1px solid black;
@@ -31,6 +32,12 @@ const InputLabel = styled.label`
 
 const InputField = styled.input`
   margin-top: 4px;
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
 `;
 
 function Element({ element, index }) {
@@ -67,6 +74,9 @@ function Element({ element, index }) {
     <ElementContainer ref={drop} style={{ opacity: isDragging ? 0.5 : 1, backgroundColor: isOver ? 'lightgrey' : 'white' }}>
       <ElementHeader ref={drag}>
         <div>{element.name}</div>
+        <IconContainer>
+          <Icon icon={element.icon} id={element.id} />
+        </IconContainer>
         <div>Drag to reorder</div>
       </ElementHeader>
       <ElementInputs>

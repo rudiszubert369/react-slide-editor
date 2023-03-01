@@ -16,6 +16,23 @@ export const AppContext = createContext();
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // useEffect(() => {
+  //   const storedState = localStorage.getItem('slideEditorState');
+
+  //   if (storedState) {
+  //     dispatch({
+  //       type: 'setStoredState',
+  //       payload: JSON.parse(storedState),
+  //     });
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   if (state.nextId !== 1) {
+  //     localStorage.setItem('slideEditorState', JSON.stringify(state));
+  //   }
+  // }, [state]);
+
   return (
     <DndProvider backend={HTML5Backend}>
       <AppContext.Provider value={{ state, dispatch }}>

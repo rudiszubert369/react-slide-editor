@@ -4,9 +4,10 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import Title from './components/Title';
 import ElementList from './components/ElementList';
-import { initialState, reducer } from './reducer';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { initialState, reducer } from './reducer';
+import { SET_STORED_STATE } from './actions/action-types.js';
 
 const AppContainer = styled.div`
   color:black;
@@ -22,7 +23,7 @@ function App() {
     const storedState = localStorage.getItem('slideEditorState');
     if (storedState) {
       dispatch({
-        type: 'setStoredState',
+        type: SET_STORED_STATE,
         payload: JSON.parse(storedState),
       });
     }

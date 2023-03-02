@@ -3,16 +3,21 @@ import styled from 'styled-components';
 import { useDrag, useDrop } from 'react-dnd';
 import { AppContext } from '../App';
 import Icon from './Icon';
+import { EDIT_INPUT, MOVE_ELEMENT } from '../actions/action-types.js';
+
+
 
 const ElementContainer = styled.div`
   border: 1px solid black;
   padding: 8px;
-  border: 1px solid black;
-  padding: 8px;
-  opacity: (isDragging ? 0 : 1)};
-  background-color: (isOver ? 'lightgrey' : 'white')};
+  opacity: ${props => props.isDragging ? 0.5 : 1};
+  background-color: ${props => props.isOver ? 'lightgrey' : 'white'};
   transition: opacity 0.2s ease-in-out;
-`;//TODO does bg color even work
+  &.over {
+    border: 1px solid red;
+  }
+`;
+
 
 const ElementHeader = styled.div`
   display: flex;
@@ -40,6 +45,7 @@ const InputField = styled.input`
   padding: 0;
   outline: none;
   text-align: center;
+  white-space: pre-wrap;
 `;
 
 const IconContainer = styled.div`
@@ -67,7 +73,7 @@ function Element({ element, index }) {
       if (item.id !== element.id) {
         const dragIndex = item.index;
         const hoverIndex = index;
-        dispatch({ type: 'moveElement', payload: { sourceIndex: dragIndex, destinationIndex: hoverIndex } });
+        dispatch({ type: MOVE_ELEMENT, payload: { sourceIndex: dragIndex, destinationIndex: hoverIndex } });
         item.index = hoverIndex;
       }
     },
@@ -75,11 +81,11 @@ function Element({ element, index }) {
 
   const handleInputChange = (inputId) => (event) => {
     const { value } = event.target;
-    dispatch({ type: 'editInput', elementId: element.id, inputId, value });
+    dispatch({ type: EDIT_INPUT, elementId: element.id, inputId, value });
   };
 
   return (
-    <ElementContainer ref={drop}>
+    <ElementContainer ref={drop} isOver={isOver} isDragging={isDragging}>
       <ElementHeader ref={drag}>
         <IconContainer>
           <Icon icon={element.icon} id={element.id} />

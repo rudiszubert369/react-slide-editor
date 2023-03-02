@@ -1,1 +1,0 @@
-export const CODEPOINTS_LINK = 'https://raw.githubusercontent.com/google/material-design-icons/master/font/MaterialIcons-Regular.codepoints';

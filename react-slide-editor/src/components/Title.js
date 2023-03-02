@@ -1,6 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { AppContext } from '../App';
+import { EDIT_TITLE } from '../actions/action-types.js';
+import { adjustTextareaHeight } from '../utils/adjustTextareaHeight';
 
 const TitleContainer = styled.div`
   display: flex;
@@ -9,7 +11,7 @@ const TitleContainer = styled.div`
   height: 80px;
 `;
 
-const InputField = styled.input`
+const TextArea = styled.textarea`
   margin-top: 4px;
   border: none;
   background: none;
@@ -18,21 +20,28 @@ const InputField = styled.input`
   padding: 0;
   outline: none;
   text-align: center;
+  font-weight: bold;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  resize: none;
 `;
 
 function Title({ title }) {
-  const [value, setValue] = useState(title);
   const { dispatch } = useContext(AppContext);
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    adjustTextareaHeight(textareaRef);
+  }, [title]);
 
   const handleInputChange = (event) => {
     const { value } = event.target;
-    setValue(value);
-    dispatch({ type: 'editTitle', title: value });
+    dispatch({ type: EDIT_TITLE, title: value });
   };
 
   return (
     <TitleContainer>
-      <InputField onChange={handleInputChange} value={value}></InputField>
+      <TextArea ref={textareaRef} onChange={handleInputChange} value={title}></TextArea>
     </TitleContainer>
   );
 }

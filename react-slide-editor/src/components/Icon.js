@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import IconEditor from './IconEditor';
 import { AppContext } from '../App';
+import { EDIT_ICON } from '../actions/action-types.js';
+
 
 const StyledIconContainer = styled.div`
   position: relative;
@@ -56,7 +58,7 @@ function Icon( { icon, id }) {
   const [showIconEditor, setShowIconEditor] = useState(false);
 
   const handleIconSelection = (selectedIcon) => {
-    dispatch({ type: 'editIcon', elementId: id, icon: selectedIcon });
+    dispatch({ type: EDIT_ICON, elementId: id, icon: selectedIcon });
     setShowIconEditor(false);
   };
 

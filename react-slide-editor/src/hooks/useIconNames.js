@@ -22,6 +22,5 @@ function useIconNames() {
   
   return icons;
 }
-  
 
 export default useIconNames;

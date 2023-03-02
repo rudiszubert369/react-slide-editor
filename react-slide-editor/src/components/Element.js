@@ -12,7 +12,7 @@ const ElementContainer = styled.div`
 const ElementHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
 `;
 
 const ElementInputs = styled.div`
@@ -55,7 +55,7 @@ function Element({ element, index }) {
 
   const [{ isOver }, drop] = useDrop({
     accept: 'element',
-    hover(item, monitor) {
+    hover(item) {
       if (item.id !== element.id) {
         const dragIndex = item.index;
         const hoverIndex = index;

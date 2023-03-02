@@ -11,7 +11,6 @@ function Icon( { icon, id }) {
     dispatch({ type: 'editIcon', elementId: id, icon: selectedIcon });
     setShowIconEditor(false);
   };
-  console.log(icon)
 
   return (
     <>

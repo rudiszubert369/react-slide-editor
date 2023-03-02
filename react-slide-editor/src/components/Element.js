@@ -7,7 +7,12 @@ import Icon from './Icon';
 const ElementContainer = styled.div`
   border: 1px solid black;
   padding: 8px;
-`;
+  border: 1px solid black;
+  padding: 8px;
+  opacity: (isDragging ? 0 : 1)};
+  background-color: (isOver ? 'lightgrey' : 'white')};
+  transition: opacity 0.2s ease-in-out;
+`;//TODO does bg color even work
 
 const ElementHeader = styled.div`
   display: flex;
@@ -16,22 +21,25 @@ const ElementHeader = styled.div`
 `;
 
 const ElementInputs = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const InputLabel = styled.label`
-  font-weight: bold;
+  margin-bottom: 8px;
 `;
 
 const InputField = styled.input`
   margin-top: 4px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  color: inherit;
+  padding: 0;
+  outline: none;
+  text-align: center;
 `;
 
 const IconContainer = styled.div`
@@ -71,18 +79,16 @@ function Element({ element, index }) {
   };
 
   return (
-    <ElementContainer ref={drop} style={{ opacity: isDragging ? 0.5 : 1, backgroundColor: isOver ? 'lightgrey' : 'white' }}>
+    <ElementContainer ref={drop}>
       <ElementHeader ref={drag}>
-        <div>{element.name}</div>
         <IconContainer>
           <Icon icon={element.icon} id={element.id} />
         </IconContainer>
-        <div>Drag to reorder</div>
+        <span className="material-icons">back_hand</span>
       </ElementHeader>
       <ElementInputs>
         {element.inputs.map((input) => (
           <InputContainer key={input.id}>
-            <InputLabel htmlFor={`input-${element.id}-${input.id}`}>Input {input.id}</InputLabel>
             <InputField
               id={`input-${element.id}-${input.id}`}
               type="text"

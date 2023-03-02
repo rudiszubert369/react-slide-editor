@@ -1,3 +1,7 @@
+import produce from 'immer';
+import { updateInputValue } from './utils/reducerUtils';
+// import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from './actions/action-types.js';
+
 export const initialState = {
   title: 'Insert a title here',
   elements: [
@@ -11,23 +15,10 @@ export function reducer(state, action) {
   switch (action.type) {
   case 'editInput': {
     const { elementId, inputId, value } = action;
-    return {
-      ...state,
-      elements: state.elements.map((element) => {
-        if (element.id === elementId) {
-          return {
-            ...element,
-            inputs: element.inputs.map((input) => {
-              if (input.id === inputId) {
-                return { ...input, value };
-              }
-              return input;
-            }),
-          };
-        }
-        return element;
-      }),
-    };
+    return produce(state, draft => {
+      const index = draft.elements.findIndex(element => element.id === elementId);
+      draft.elements[index] = updateInputValue(draft.elements[index], inputId, value);
+    });
   }
   case 'moveElement': {
     const { sourceIndex, destinationIndex } = action.payload;

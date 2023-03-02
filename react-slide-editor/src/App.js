@@ -8,14 +8,8 @@ import { initialState, reducer } from './reducer';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-
-
-
-
 const AppContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
+  color:black;
 `;
 
 export const AppContext = createContext();
@@ -62,7 +56,24 @@ function App() {
       doc.save('slide.pdf');
     });
   };
+
+  const handleExportToHTML = () => {
+    const app = appRef.current;
   
+    // Get the outer HTML of the app container
+    const htmlContent = app.outerHTML;
+  
+    // Create a data URI from the HTML content
+    const dataUri = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
+  
+    // Create a download link and simulate a click to trigger the download
+    const downloadLink = document.createElement('a');
+    downloadLink.href = dataUri;
+    downloadLink.download = 'slide.html';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -72,6 +83,8 @@ function App() {
           <ElementList elements={state.elements} />
         </AppContainer>
         <button onClick={handleExportToPDF}>Export to PDF</button>
+        <button onClick={handleExportToHTML}>Export to HTML</button>
+
       </AppContext.Provider>
     </DndProvider>
   );

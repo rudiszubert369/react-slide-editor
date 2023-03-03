@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import InputElement from './InputElement';
 
 const TitleContainer = styled.div`
@@ -15,5 +16,12 @@ function Title({ title }) {
     </TitleContainer>
   );
 }
+
+Title.propTypes = {
+  title: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    inputType: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default Title;

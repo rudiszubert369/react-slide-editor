@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import IconEditor from './IconEditor';
 import { AppContext } from '../App';
 import { EDIT_ICON } from '../actions/action-types.js';
@@ -74,5 +75,10 @@ function Icon( { icon, id }) {
     </StyledIconContainer>
   );
 }
+
+Icon.propTypes = {
+  icon: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+};
 
 export default Icon;

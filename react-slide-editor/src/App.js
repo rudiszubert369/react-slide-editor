@@ -7,6 +7,8 @@ import ElementList from './components/ElementList';
 import { initialState, reducer } from './reducer';
 import { SET_STORED_STATE } from './actions/action-types.js';
 import ExportButtons from './components/ExportButtons';
+import useLocalStorage from './hooks/useLocalStorage';
+
 
 const AppContainer = styled.div`
   color: black;
@@ -19,19 +21,20 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const appRef = useRef(null);
 
-  // useEffect(() => {
-  //   const storedState = localStorage.getItem('slideEditorState');
-  //   if (storedState) {
-  //     dispatch({
-  //       type: SET_STORED_STATE,
-  //       payload: JSON.parse(storedState),
-  //     });
-  //   }
-  // }, []);
+  const [storedState, setStoredState] = useLocalStorage('slideEditorState', null);
 
   useEffect(() => {
-    localStorage.setItem('slideEditorState', JSON.stringify(state));
-  }, [state]);
+    if (storedState) {
+      dispatch({
+        type: SET_STORED_STATE,
+        payload: storedState,
+      });
+    }
+  }, [storedState]);
+
+  useEffect(() => {
+    setStoredState(state);
+  }, [state, setStoredState]);
 
   return (
     <DndProvider backend={HTML5Backend}>

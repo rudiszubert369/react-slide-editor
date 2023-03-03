@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Element from './Element';
 
 const ElementListContainer = styled.div`
@@ -22,5 +23,21 @@ function ElementList({ elements }) {
     </ElementListContainer>
   );
 }
+
+ElementList.propTypes = {
+  elements: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      icon: PropTypes.string.isRequired,
+      inputs: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          value: PropTypes.string.isRequired,
+        })
+      ).isRequired,
+    })
+  ).isRequired,
+};
+
 
 export default ElementList;

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import Icon from './Icon';
 import InputElement from './InputElement';
 import useDragAndDrop from '../hooks/useDragAndDrop';
@@ -53,5 +54,20 @@ function Element({ element, index }) {
     </ElementContainer>
   );
 }
+
+Element.propTypes = {
+  element: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    icon: PropTypes.string.isRequired,
+    inputs: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        value: PropTypes.string.isRequired,
+        inputType: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export default Element;

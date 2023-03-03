@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 const TEXT_MAX_WIDTH = 210;
 const TITLE_MAX_WIDTH = 600;
 const TEXT_INIT_WIDTH = 2;

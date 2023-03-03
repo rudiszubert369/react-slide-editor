@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import useIconNames from '../hooks/useIconNames';
+import useHandleClickOutside from '../hooks/useHandleClickOutside';
 
 const StyledIconEditor = styled.div`
   position: absolute;
@@ -62,20 +64,12 @@ function IconEditor({ onIconSelect, onClose }) {
   const allIconNames = useIconNames();
   const containerRef = useRef(null);
 
+  useHandleClickOutside(containerRef, onClose);
+
   useEffect(() => {
     const data = allIconNames.slice(0, INITIAL_ICONS_TO_SHOW);
     setIcons(data);
-
-    const handleClickOutside = (event) => {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
-        onClose();
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [allIconNames, onClose]);
+  }, [allIconNames]);
 
   const handleScroll = useCallback(() => {
     const container = containerRef.current;
@@ -100,5 +94,10 @@ function IconEditor({ onIconSelect, onClose }) {
     </StyledIconEditor>
   );
 }
+
+IconEditor.propTypes = {
+  onIconSelect: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default IconEditor;

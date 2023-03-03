@@ -16,16 +16,18 @@ function useDragAndDrop(element, index) {
     }),
   });
 
+  const handleDrop = (item) => {
+    if (item.id !== element.id) {
+      const dragIndex = item.index;
+      const hoverIndex = index;
+      dispatch({ type: MOVE_ELEMENT, payload: { sourceIndex: dragIndex, destinationIndex: hoverIndex } });
+      item.index = hoverIndex;
+    }
+  };
+
   const [, drop] = useDrop({
     accept: 'element',
-    hover(item) {
-      if (item.id !== element.id) {
-        const dragIndex = item.index;
-        const hoverIndex = index;
-        dispatch({ type: MOVE_ELEMENT, payload: { sourceIndex: dragIndex, destinationIndex: hoverIndex } });
-        item.index = hoverIndex;
-      }
-    },
+    hover: handleDrop,
   });
 
   return [drag, drop, isDragging];

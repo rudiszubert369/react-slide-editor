@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import handleExportToPDF from '../utils/handleExportToPDF';
 import handleExportToHTML from '../utils/handleExportToHTML';
 
@@ -34,8 +35,6 @@ const ButtonContainer = styled.div`
   }
 `;
 
-
-
 function ExportButtons({ appRef }) {
   return (
     <ButtonContainer>
@@ -44,5 +43,9 @@ function ExportButtons({ appRef }) {
     </ButtonContainer>
   );
 }
+
+ExportButtons.propTypes = {
+  appRef: PropTypes.object.isRequired,
+};
 
 export default ExportButtons;

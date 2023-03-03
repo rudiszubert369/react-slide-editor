@@ -1,5 +1,6 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useCallback } from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import { AppContext } from '../App';
 import { EDIT_INPUT, EDIT_TITLE } from '../actions/action-types.js';
 import { useAdjustTextareaSize } from '../hooks/useAdjustTextareaSize';
@@ -51,14 +52,18 @@ function InputElement({ input, elementId }) {
 
   useAdjustTextareaSize(textareaRef, input);
 
-  const handleInputChange = (event) => {
-    const { value } = event.target;
-    if (input.inputType === 'title') {
-      dispatch({ type: EDIT_TITLE, title: { ...input, value } });
-    } else {
-      dispatch({ type: EDIT_INPUT, elementId, inputId: input.id, value });
-    }
-  };
+  const handleInputChange = useCallback(
+    (event) => {
+      const { value } = event.target;
+      if (input.inputType === 'title') {
+        dispatch({ type: EDIT_TITLE, title: { ...input, value } });
+      } else {
+        dispatch({ type: EDIT_INPUT, elementId, inputId: input.id, value });
+      }
+    },
+    [dispatch, elementId, input]
+  );
+  
 
   return (
     <InputContainer>
@@ -73,5 +78,14 @@ function InputElement({ input, elementId }) {
     </InputContainer>
   );
 }
+
+InputElement.propTypes = {
+  input: PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string.isRequired,
+    inputType: PropTypes.oneOf(['text', 'additionalText', 'title']).isRequired,
+  }).isRequired,
+  elementId: PropTypes.number
+};
 
 export default InputElement;

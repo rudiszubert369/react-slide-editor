@@ -34,14 +34,14 @@ const InputField = styled.textarea`
     css`
       font-weight: normal;
       background-color: none;
-      font-size: 14px;
+      font-size: 12px;
     `}
   ${({ inputType }) =>
     inputType === 'title' &&
     css`
       font-weight: bold;
       background-color: none;
-      font-size: 26px;
+      font-size: 22px;
   `}
 `;
 
@@ -49,7 +49,7 @@ function InputElement({ input, elementId }) {
   const { dispatch } = useContext(AppContext);
   const textareaRef = useRef(null);
 
-  useAdjustTextareaSize(textareaRef, input.value);
+  useAdjustTextareaSize(textareaRef, input);
 
   const handleInputChange = (event) => {
     const { value } = event.target;

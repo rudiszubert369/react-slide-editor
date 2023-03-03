@@ -6,11 +6,11 @@ import Title from './components/Title';
 import ElementList from './components/ElementList';
 import { initialState, reducer } from './reducer';
 import { SET_STORED_STATE } from './actions/action-types.js';
-import handleExportToPDF from './utils/handleExportToPDF';
-import handleExportToHTML from './utils/handleExportToHTML';
+import ExportButtons from './components/ExportButtons';
 
 const AppContainer = styled.div`
-  color:black;
+  color: black;
+  margin-top: 70px;
 `;
 
 export const AppContext = createContext();
@@ -19,15 +19,15 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const appRef = useRef(null);
 
-  useEffect(() => {
-    const storedState = localStorage.getItem('slideEditorState');
-    if (storedState) {
-      dispatch({
-        type: SET_STORED_STATE,
-        payload: JSON.parse(storedState),
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedState = localStorage.getItem('slideEditorState');
+  //   if (storedState) {
+  //     dispatch({
+  //       type: SET_STORED_STATE,
+  //       payload: JSON.parse(storedState),
+  //     });
+  //   }
+  // }, []);
 
   useEffect(() => {
     localStorage.setItem('slideEditorState', JSON.stringify(state));
@@ -40,8 +40,7 @@ function App() {
           <Title title={state.title} />
           <ElementList elements={state.elements} />
         </AppContainer>
-        <button onClick={() => handleExportToPDF(appRef)}>Export to PDF</button>
-        <button onClick={() => handleExportToHTML(appRef)}>Export to HTML</button>
+        <ExportButtons appRef={appRef}/>
       </AppContext.Provider>
     </DndProvider>
   );

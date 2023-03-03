@@ -5,7 +5,7 @@ import Element from './Element';
 const ElementListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
 
   @media (max-width: 768px) {
     flex-direction: column;

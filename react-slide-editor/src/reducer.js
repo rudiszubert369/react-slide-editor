@@ -11,7 +11,7 @@ export const initialState = {
         { id: 1, inputType: 'text', value: 'Insert text here' },
         { id: 2, inputType: 'additionalText', value: 'Add here your additional text' }
       ],
-      icon: 'airline_seat_legroom_reduced'
+      icon: 'favorite'
     },
     {
       id: 2,
@@ -19,7 +19,7 @@ export const initialState = {
         { id: 1, inputType: 'text', value: 'Insert text here' },
         { id: 2, inputType: 'additionalText', value: 'Add here your additional text' }
       ],
-      icon: 'fluorescent'
+      icon: 'pie_chart'
     },
     {
       id: 3,
@@ -27,7 +27,7 @@ export const initialState = {
         { id: 1, inputType: 'text', value: 'Insert text here' },
         { id: 2, inputType: 'additionalText', value: 'Add here your additional text' }
       ],
-      icon: 'airline_seat_legroom_reduced'
+      icon: 'thumb_up'
     }
   ]
 };

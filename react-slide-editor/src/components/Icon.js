@@ -4,7 +4,6 @@ import IconEditor from './IconEditor';
 import { AppContext } from '../App';
 import { EDIT_ICON } from '../actions/action-types.js';
 
-
 const StyledIconContainer = styled.div`
   position: relative;
 

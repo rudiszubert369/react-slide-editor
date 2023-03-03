@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { useDrag, useDrop } from 'react-dnd';
 import { AppContext } from '../App';
 import Icon from './Icon';
-import { EDIT_INPUT, MOVE_ELEMENT } from '../actions/action-types.js';
+import { MOVE_ELEMENT } from '../actions/action-types.js';
+import InputElement from './InputElement';
 
 
 
@@ -28,24 +29,6 @@ const ElementHeader = styled.div`
 const ElementInputs = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 8px;
-`;
-
-const InputField = styled.input`
-  margin-top: 4px;
-  border: none;
-  background: none;
-  font-size: 16px;
-  color: inherit;
-  padding: 0;
-  outline: none;
-  text-align: center;
-  white-space: pre-wrap;
 `;
 
 const IconContainer = styled.div`
@@ -79,11 +62,6 @@ function Element({ element, index }) {
     },
   });
 
-  const handleInputChange = (inputId) => (event) => {
-    const { value } = event.target;
-    dispatch({ type: EDIT_INPUT, elementId: element.id, inputId, value });
-  };
-
   return (
     <ElementContainer ref={drop} isOver={isOver} isDragging={isDragging}>
       <ElementHeader ref={drag}>
@@ -94,14 +72,7 @@ function Element({ element, index }) {
       </ElementHeader>
       <ElementInputs>
         {element.inputs.map((input) => (
-          <InputContainer key={input.id}>
-            <InputField
-              id={`input-${element.id}-${input.id}`}
-              type="text"
-              value={input.value}
-              onChange={handleInputChange(input.id)}
-            />
-          </InputContainer>
+          <InputElement key={input.id} input={input} elementId={element.id} />
         ))}
       </ElementInputs>
     </ElementContainer>

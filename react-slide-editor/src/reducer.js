@@ -3,29 +3,29 @@ import { updateInputValue } from './utils/reducer-helpers';
 import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from './actions/action-types.js';
 
 export const initialState = {
-  title: 'Insert a title here',
+  title: { inputType: 'title', value: 'Insert a title here'},
   elements: [
     {
       id: 1,
       inputs: [
-        { id: 1, type: 'text', value: 'Insert text here' },
-        { id: 2, type: 'additionalText', value: 'Add here your additional text' }
+        { id: 1, inputType: 'text', value: 'Insert text here' },
+        { id: 2, inputType: 'additionalText', value: 'Add here your additional text' }
       ],
       icon: 'airline_seat_legroom_reduced'
     },
     {
       id: 2,
       inputs: [
-        { id: 1, type: 'text', value: 'Insert text here' },
-        { id: 2, type: 'additionalText', value: 'Add here your additional text' }
+        { id: 1, inputType: 'text', value: 'Insert text here' },
+        { id: 2, inputType: 'additionalText', value: 'Add here your additional text' }
       ],
       icon: 'fluorescent'
     },
     {
       id: 3,
       inputs: [
-        { id: 1, type: 'text', value: 'Insert text here' },
-        { id: 2, type: 'additionalText', value: 'Add here your additional text' }
+        { id: 1, inputType: 'text', value: 'Insert text here' },
+        { id: 2, inputType: 'additionalText', value: 'Add here your additional text' }
       ],
       icon: 'airline_seat_legroom_reduced'
     }
@@ -57,6 +57,7 @@ export function reducer(state, action) {
   }
   case EDIT_TITLE: {
     const { title } = action;
+    console.log(title);
     return produce(state, draft => {
       draft.title = title;
     });

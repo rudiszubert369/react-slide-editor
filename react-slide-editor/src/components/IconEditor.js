@@ -3,18 +3,24 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import useIconNames from '../hooks/useIconNames';
 import useHandleClickOutside from '../hooks/useHandleClickOutside';
+import Spinner from './Spinner';
+
 
 const StyledIconEditor = styled.div`
-  position: absolute;
-  top: 100px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
   overflow: auto;
-  height: 200px;
+  height: 300px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  padding: 10px;
-  width: 200px;
+  grid-gap: 20px;
+  padding: 20px;
+  width: 300px;
   background: white;
+  border-radius: 10px;
 
   /* Add scrollbar */
   ::-webkit-scrollbar {
@@ -35,21 +41,31 @@ const Icon = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f1f1f1;
+    border-radius: 15%;
+  }
+
+  .material-icons {
+    font-size: 40px;
+  }
 `;
 
 const CloseButton = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 5px;
+  position: fixed;
+  top: 10px;
+  right: 11px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border: none;
   background-color: transparent;
   cursor: pointer;
+  z-index: 999999;
 
   &:hover {
     background-color: #f1f1f1;
@@ -57,7 +73,30 @@ const CloseButton = styled.button`
   }
 `;
 
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  z-index: 9999;
+`;
+
+const ModalContainer = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  width: 350px;
+  height: 350px;
+  overflow: hidden;
+`;
+
 const INITIAL_ICONS_TO_SHOW = 100;
+const CLOSE_ICON_NAME = 'close';
 
 function IconEditor({ onIconSelect, onClose }) {
   const [icons, setIcons] = useState([]);
@@ -82,16 +121,27 @@ function IconEditor({ onIconSelect, onClose }) {
   }, [icons, allIconNames]);
 
   return (
-    <StyledIconEditor ref={containerRef} onScroll={handleScroll}>
-      <CloseButton onClick={onClose}>
-        <span className="material-icons">close</span>
-      </CloseButton>
-      {icons.map((icon) => (
-        <Icon key={icon} onClick={(e) => onIconSelect(e.target.innerText)}>
-          <span className="material-icons">{icon}</span>
-        </Icon>
-      ))}
-    </StyledIconEditor>
+    <>
+      <Overlay />
+      <ModalContainer>
+        <CloseButton onClick={onClose}>
+          <span className="material-icons">{CLOSE_ICON_NAME}</span>
+        </CloseButton>
+        {!icons.length ? (
+          <StyledIconEditor>
+            <Spinner />
+          </StyledIconEditor>
+        ) : (
+          <StyledIconEditor ref={containerRef} onScroll={handleScroll}>
+            {icons.map((icon) => (
+              <Icon key={icon} onClick={(e) => onIconSelect(e.target.innerText)}>
+                <span className="material-icons">{icon}</span>
+              </Icon>
+            ))}
+          </StyledIconEditor>
+        )}
+      </ModalContainer>
+    </>
   );
 }
 

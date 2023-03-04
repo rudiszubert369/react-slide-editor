@@ -10,11 +10,13 @@ const ElementContainer = styled.div`
   margin: 30px;
   opacity: ${props => props.isDragging ? 0.5 : 1};
   transition: opacity 0.2s ease-in-out;
-  cursor: pointer;
 
   &:hover {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    transform: translateY(-1px);
+  }
+
+  &:hover span {
+    opacity: 1;
   }
 
   ${({ isDragging }) =>
@@ -35,17 +37,28 @@ const IconContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 8px;
 `;
+
+const DragIndicator = styled.span`
+  // position: absolute;
+  // right: 1px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  cursor: pointer;
+`;
+
+const DRAG_INDICATOR_ICON_NAME = 'drag_indicator';
 
 function Element({ element, index }) {
   const [drag, drop, isDragging] = useDragAndDrop(element, index);
 
   return (
-    <ElementContainer ref={drag} isDragging={isDragging}>
+    <ElementContainer isDragging={isDragging} ref={drag}>
+      <DragIndicator className="material-icons">{ DRAG_INDICATOR_ICON_NAME }</DragIndicator>
       <IconContainer ref={drop}>
         <Icon icon={element.icon} id={element.id} />
       </IconContainer>
+
       <ElementInputs>
         {element.inputs.map((input) => (
           <InputElement key={input.id} input={input} elementId={element.id} />

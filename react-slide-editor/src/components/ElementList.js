@@ -8,7 +8,7 @@ const ElementListContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 860px) {
     flex-direction: column;
     align-items: center;
   }

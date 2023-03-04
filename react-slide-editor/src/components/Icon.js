@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import IconEditor from './IconEditor';
-import { AppContext } from '../App';
-import { EDIT_ICON } from '../actions/action-types.js';
+import { AppContext } from '../providers/AppContextProvider';
+import { EDIT_ICON } from '../store/actions/action-types.js';
 
 const StyledIconContainer = styled.div`
   position: relative;

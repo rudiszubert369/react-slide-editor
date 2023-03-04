@@ -5,7 +5,6 @@ import useIconNames from '../hooks/useIconNames';
 import useHandleClickOutside from '../hooks/useHandleClickOutside';
 import Spinner from './Spinner';
 
-
 const StyledIconEditor = styled.div`
   position: fixed;
   top: 50%;
@@ -22,7 +21,6 @@ const StyledIconEditor = styled.div`
   background: white;
   border-radius: 10px;
 
-  /* Add scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -96,29 +94,32 @@ const ModalContainer = styled.div`
 `;
 
 const INITIAL_ICONS_TO_SHOW = 100;
+const ICONS_SCROLLING_MULTIPLIER = 1.5;
 const CLOSE_ICON_NAME = 'close';
 
 function IconEditor({ onIconSelect, onClose }) {
   const [icons, setIcons] = useState([]);
-  const allIconNames = useIconNames();
+  const allIconNamesRef = useRef(useIconNames());
   const containerRef = useRef(null);
 
   useHandleClickOutside(containerRef, onClose);
 
   useEffect(() => {
+    const allIconNames = allIconNamesRef.current;
     const data = allIconNames.slice(0, INITIAL_ICONS_TO_SHOW);
     setIcons(data);
-  }, [allIconNames]);
+  }, []);
 
   const handleScroll = useCallback(() => {
     const container = containerRef.current;
     if (container.scrollTop + container.offsetHeight >= container.scrollHeight) {
-      if (icons.length !== allIconNames.length) {
-        const nextIcons = allIconNames.slice(0, icons.length * 1.5);
+      const allIconNames = allIconNamesRef.current;
+      if (icons.length < allIconNames.length) {
+        const nextIcons = allIconNames.slice(0, icons.length * ICONS_SCROLLING_MULTIPLIER);
         setIcons(nextIcons);
       }
     }
-  }, [icons, allIconNames]);
+  }, [icons]);
 
   return (
     <>

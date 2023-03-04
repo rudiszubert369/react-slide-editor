@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { updateInputValue } from '../utils/utils';
-import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from '../actions/action-types.js';
+import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from './actions/action-types.js';
 
 export const initialState = {
   title: { inputType: 'title', value: 'Insert a title here'},

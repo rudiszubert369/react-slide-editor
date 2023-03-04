@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { AppContext } from '../App';
-import { MOVE_ELEMENT } from '../actions/action-types.js';
+import { AppContext } from '../providers/AppContextProvider';
+import { MOVE_ELEMENT } from '../store/actions/action-types.js';
 
 function useDragAndDrop(element, index) {
   const { dispatch } = useContext(AppContext);

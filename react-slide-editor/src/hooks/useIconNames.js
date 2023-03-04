@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import useLocalStorage from './useLocalStorage';
 
+const UNNECESSARY_LOADING_TIME = 3000;
+
 function useIconNames() {
   const [icons, setIcons] = useLocalStorage('icons', []);
 
@@ -13,7 +15,7 @@ function useIconNames() {
         const iconNames = data.split('\n').map(line => line.split(' ')[0]);
         setTimeout(() => {
           setIcons(iconNames);
-        }, 1000); //Timeout added just to be able to exhibit the spinner
+        }, UNNECESSARY_LOADING_TIME); //Timeout added just for spinner presentational purposes, fetch is usually too fast
       } catch (error) {
         console.error('Error fetching icon data:', error);
       }

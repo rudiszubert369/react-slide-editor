@@ -1,8 +1,8 @@
 import React, { useContext, useRef, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { AppContext } from '../App';
-import { EDIT_INPUT, EDIT_TITLE } from '../actions/action-types.js';
+import { AppContext } from '../providers/AppContextProvider';
+import { EDIT_INPUT, EDIT_TITLE } from '../store/actions/action-types.js';
 import { useAdjustTextareaSize } from '../hooks/useAdjustTextareaSize';
 
 const InputContainer = styled.div`

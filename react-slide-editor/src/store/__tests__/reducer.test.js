@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { initialState, reducer } from '../reducer';
-import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from '../../actions/action-types';
+import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from '../actions/action-types';
 
 describe('reducer', () => {
   it('should return the initial state', () => {

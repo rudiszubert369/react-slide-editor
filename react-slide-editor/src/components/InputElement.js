@@ -63,7 +63,6 @@ function InputElement({ input, elementId }) {
     },
     [dispatch, elementId, input]
   );
-  
 
   return (
     <InputContainer>

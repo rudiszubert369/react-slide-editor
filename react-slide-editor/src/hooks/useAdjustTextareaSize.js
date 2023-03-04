@@ -8,7 +8,7 @@ function adjustTextareaWidth(ref, type) {
   const maxWidth = type === 'title' ? TITLE_MAX_WIDTH : TEXT_MAX_WIDTH;
   const lines = ref.value.split('\n');
   const fontSize = parseInt(getComputedStyle(ref).fontSize);
-  const maxLineWidth = lines.reduce((max, line) => Math.max(max, line.length * fontSize * 0.6), 0);
+  const maxLineWidth = lines.reduce((max, line) => Math.max(max, line.length * fontSize * 0.6), 0);//*0.6 is a result of trial and error of trying to match design
   const inputWidth = Math.min(maxLineWidth + TEXT_INIT_WIDTH, maxWidth);
   ref.style.width = `${inputWidth}px`;
 }

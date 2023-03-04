@@ -2,13 +2,12 @@ import React, { useEffect, useReducer, createContext, useRef } from 'react';
 import styled from 'styled-components';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { initialState, reducer } from './store/reducer';
 import Title from './components/Title';
 import ElementList from './components/ElementList';
-import { initialState, reducer } from './reducer';
-import { SET_STORED_STATE } from './actions/action-types.js';
 import ExportButtons from './components/ExportButtons';
 import useLocalStorage from './hooks/useLocalStorage';
-
+import { SET_STORED_STATE } from './actions/action-types.js';
 
 const AppContainer = styled.div`
   color: black;

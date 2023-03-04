@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import handleExportToPDF from '../utils/handleExportToPDF';
-import handleExportToHTML from '../utils/handleExportToHTML';
+import { handleExportToPDF, handleExportToHTML } from '../utils/utils';
 
 const ButtonContainer = styled.div`
   display: flex;

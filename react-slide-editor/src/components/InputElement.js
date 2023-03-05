@@ -1,10 +1,17 @@
-import React, { useContext, useRef, useCallback } from 'react';
+import React, { useContext, useRef, useCallback, useState } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import CharacterCount from './CharacterCount';
 import { AppContext } from '../providers/AppContextProvider';
 import { useAdjustTextareaSize } from '../hooks/useAdjustTextareaSize';
-import { INPUT_TYPE_TITLE, INPUT_TYPE_TEXT, INPUT_TYPE_ADDITIONAL_TEXT,  } from '../constants';
 import { editTitle, editInput } from '../store/actions/elementActions';
+import {
+  INPUT_TYPE_TITLE,
+  INPUT_TYPE_TEXT,
+  INPUT_TYPE_ADDITIONAL_TEXT,
+  FONT_FAMILY_PRIMARY
+} from '../constants';
+
 
 const InputContainer = styled.div`
   display: flex;
@@ -23,7 +30,7 @@ const InputContainer = styled.div`
 
 const InputField = styled.textarea`
   margin-top: 4px;
-  font-family: roboto, sans-serif;
+  font-family: ${FONT_FAMILY_PRIMARY}, sans-serif;
   border: none;
   background: none;
   font-size: 16px;
@@ -54,10 +61,16 @@ const InputField = styled.textarea`
       background-color: none;
       font-size: 22px;
   `}
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      box-shadow: 0 0 0 1px rgba(61, 49, 55, 0.3);
+    `}
 `;
 
 function InputElement({ input, elementId }) {
   const { dispatch } = useContext(AppContext);
+  const [isActive, setIsActive] = useState(false);
   const textareaRef = useRef(null);
 
   useAdjustTextareaSize(textareaRef, input);
@@ -78,6 +91,14 @@ function InputElement({ input, elementId }) {
     [dispatch, elementId, input]
   );
 
+  const handleFocus = useCallback(() => {
+    setIsActive(true);
+  }, []);
+
+  const handleBlur = useCallback(() => {
+    setIsActive(false);
+  }, []);
+
   return (
     <InputContainer>
       <InputField
@@ -86,10 +107,15 @@ function InputElement({ input, elementId }) {
         type="text"
         value={input.value}
         onChange={handleInputChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         inputType={input.inputType}
+        isActive={isActive}
         aria-label={input.inputType === INPUT_TYPE_TITLE ? 'Title input' : 'Text input'}
       />
-    </InputContainer>
+      {isActive && (
+        <CharacterCount charCount={input.value.length} />
+      )}    </InputContainer>
   );
 }
 

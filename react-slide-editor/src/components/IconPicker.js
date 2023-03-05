@@ -1,15 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import useIconNames from '../hooks/useIconNames';
 import useHandleClickOutside from '../hooks/useHandleClickOutside';
 import Spinner from './Spinner';
-import {
-  INITIAL_ICONS_TO_SHOW,
-  ICONS_SCROLLING_MULTIPLIER,
-  ICONS_CLASS_NAME,
-  ICON_CLOSE
-} from '../constants';
+import { ICONS_CLASS_NAME, ICON_CLOSE } from '../constants';
+import useIconNames from '../hooks/useIconNames';
 
 const StyledIconEditor = styled.div`
   position: fixed;
@@ -99,29 +94,13 @@ const ModalContainer = styled.div`
   overflow: hidden;
 `;
 
+
+
 function IconPicker({ onIconSelect, onClose }) {
-  const [icons, setIcons] = useState([]);
-  const allIconNamesRef = useRef(useIconNames());
+  const { icons, isLoading } = useIconNames();
+
   const containerRef = useRef(null);
-
   useHandleClickOutside(containerRef, onClose);
-
-  useEffect(() => {
-    const allIconNames = allIconNamesRef.current;
-    const data = allIconNames.slice(0, INITIAL_ICONS_TO_SHOW);
-    setIcons(data);
-  }, []);
-
-  const handleScroll = useCallback(() => {
-    const container = containerRef.current;
-    if (container.scrollTop + container.offsetHeight >= container.scrollHeight) {
-      const allIconNames = allIconNamesRef.current;
-      if (icons.length < allIconNames.length) {
-        const nextIcons = allIconNames.slice(0, icons.length * ICONS_SCROLLING_MULTIPLIER);
-        setIcons(nextIcons);
-      }
-    }
-  }, [icons]);
 
   return (
     <>
@@ -130,18 +109,20 @@ function IconPicker({ onIconSelect, onClose }) {
         <CloseButton onClick={onClose} aria-label="close">
           <span className={ICONS_CLASS_NAME}>{ICON_CLOSE}</span>
         </CloseButton>
-        {!icons.length ? (
+        {isLoading ? (
           <StyledIconEditor>
             <Spinner />
           </StyledIconEditor>
         ) : (
-          <StyledIconEditor ref={containerRef} onScroll={handleScroll}>
-            {icons.map((icon) => (
-              <Icon key={icon} onClick={(e) => onIconSelect(e.target.innerText)}>
+          <StyledIconEditor ref={containerRef}>
+            {icons.map((icon, index) => (
+              <Icon key={`${icon}-${index}`} onClick={(e) => onIconSelect(e.target.innerText)}>
                 <span 
                   className={ICONS_CLASS_NAME}
                   role="button"
-                  aria-label="Change icon">{icon}
+                  aria-label="Change icon"
+                >
+                  {icon}
                 </span>
               </Icon>
             ))}

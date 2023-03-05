@@ -1,29 +1,26 @@
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import useLocalStorage from './useLocalStorage';
-
-const UNNECESSARY_LOADING_TIME = 3000;
 
 function useIconNames() {
-  const [icons, setIcons] = useLocalStorage('icons', []);
+  const [icons, setIcons] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchIcons = async () => {
       try {
         const response = await axios.get(process.env.REACT_APP_ICON_NAMES_API);
         const data = response.data;
         const iconNames = data.split('\n').map(line => line.split(' ')[0]);
-        setTimeout(() => {
-          setIcons(iconNames);
-        }, UNNECESSARY_LOADING_TIME); //Timeout added just for spinner presentational purposes, fetch is usually too fast
+        setIcons(iconNames);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching icon data:', error);
       }
     };
-    fetchData();
-  }, [icons, setIcons]);
+    fetchIcons();
+  }, []);
 
-  return icons;
+  return { icons, isLoading };
 }
 
 export default useIconNames;

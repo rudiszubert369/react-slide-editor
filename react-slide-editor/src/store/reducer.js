@@ -70,9 +70,9 @@ export function reducer(state, action) {
     });
   }
   case EDIT_ICON: {
-    const { elementId: iconElementId, icon } = action;
+    const { iconId, icon } = action;
     return produce(state, draft => {
-      const index = draft.elements.findIndex(element => element.id === iconElementId);
+      const index = draft.elements.findIndex(element => element.id === iconId);
       draft.elements[index].icon = icon;
     });
   }

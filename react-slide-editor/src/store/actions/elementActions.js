@@ -25,10 +25,10 @@ export function moveElement(sourceIndex, destinationIndex) {
   };
 }
 
-export function editIcon(elementId, icon) {
+export function editIcon(iconId, icon) {
   return {
     type: EDIT_ICON,
-    elementId,
+    iconId,
     icon
   };
 }

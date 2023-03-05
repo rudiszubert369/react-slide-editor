@@ -1,33 +1,54 @@
 import produce from 'immer';
 import { updateInputValue } from '../utils/utils';
-import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from './actions/action-types.js';
+import { 
+  EDIT_INPUT, 
+  MOVE_ELEMENT, 
+  EDIT_ICON, 
+  EDIT_TITLE, 
+  SET_STORED_STATE 
+} from './actions/actionTypes.js';
+
+import { 
+  INPUT_TYPE_TITLE, 
+  INPUT_TYPE_TEXT, 
+  INPUT_TYPE_ADDITIONAL_TEXT, 
+  DEFAULT_TITLE, 
+  DEFAULT_TEXT, 
+  DEFAULT_ADDITIONAL_TEXT 
+} from '../constants';
+
+import {
+  ICON_HEART,
+  ICON_THUMB_UP,
+  ICON_PIE_CHART
+} from '../constants';
 
 export const initialState = {
-  title: { inputType: 'title', value: 'Insert a title here'},
+  title: { inputType: INPUT_TYPE_TITLE, value: DEFAULT_TITLE},
   elements: [
     {
       id: 1,
       inputs: [
-        { id: 1, inputType: 'text', value: 'Insert text here' },
-        { id: 2, inputType: 'additionalText', value: 'Add here your additional text' }
+        { id: 1, inputType: INPUT_TYPE_TEXT, value: DEFAULT_TEXT },
+        { id: 2, inputType: INPUT_TYPE_ADDITIONAL_TEXT, value: DEFAULT_ADDITIONAL_TEXT }
       ],
-      icon: 'favorite'
+      icon: ICON_HEART
     },
     {
       id: 2,
       inputs: [
-        { id: 1, inputType: 'text', value: 'Insert text here' },
-        { id: 2, inputType: 'additionalText', value: 'Add here your additional text' }
+        { id: 1, inputType: INPUT_TYPE_TEXT, value: DEFAULT_TEXT },
+        { id: 2, inputType: INPUT_TYPE_ADDITIONAL_TEXT, value: DEFAULT_ADDITIONAL_TEXT }
       ],
-      icon: 'pie_chart'
+      icon: ICON_PIE_CHART
     },
     {
       id: 3,
       inputs: [
-        { id: 1, inputType: 'text', value: 'Insert text here' },
-        { id: 2, inputType: 'additionalText', value: 'Add here your additional text' }
+        { id: 1, inputType: INPUT_TYPE_TEXT, value: DEFAULT_TEXT },
+        { id: 2, inputType: INPUT_TYPE_ADDITIONAL_TEXT, value: DEFAULT_ADDITIONAL_TEXT }
       ],
-      icon: 'thumb_up'
+      icon: ICON_THUMB_UP
     }
   ]
 };
@@ -57,7 +78,6 @@ export function reducer(state, action) {
   }
   case EDIT_TITLE: {
     const { title } = action;
-    console.log(title);
     return produce(state, draft => {
       draft.title = title;
     });

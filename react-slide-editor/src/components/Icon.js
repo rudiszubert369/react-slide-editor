@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import IconEditor from './IconEditor';
+import IconPicker from './IconPicker';
 import { AppContext } from '../providers/AppContextProvider';
-import { EDIT_ICON } from '../store/actions/action-types.js';
+import { editIcon } from '../store/actions/elementActions';
+import { ICONS_CLASS_NAME } from '../constants';
 
 const StyledIconContainer = styled.div`
   position: relative;
@@ -58,7 +59,9 @@ function Icon( { icon, id }) {
   const [showIconEditor, setShowIconEditor] = useState(false);
 
   const handleIconSelection = (selectedIcon) => {
-    dispatch({ type: EDIT_ICON, elementId: id, icon: selectedIcon });
+    dispatch(
+      editIcon(id, selectedIcon)
+    );
     setShowIconEditor(false);
   };
 
@@ -68,10 +71,10 @@ function Icon( { icon, id }) {
 
   return (
     <StyledIconContainer>
-      <StyledIcon className="material-icons">{icon}</StyledIcon>
+      <StyledIcon className={ICONS_CLASS_NAME}>{icon}</StyledIcon>
       <Overlay className="overlay" />
       <EditIconButton className="edit-icon-button" onClick={() => setShowIconEditor(true)}>Pick Icon</EditIconButton>
-      {showIconEditor && <IconEditor onIconSelect={handleIconSelection} onClose={handleCloseIconEditor} />}
+      {showIconEditor && <IconPicker onIconSelect={handleIconSelection} onClose={handleCloseIconEditor} />}
     </StyledIconContainer>
   );
 }

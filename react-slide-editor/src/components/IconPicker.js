@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 import useIconNames from '../hooks/useIconNames';
 import useHandleClickOutside from '../hooks/useHandleClickOutside';
 import Spinner from './Spinner';
+import {
+  INITIAL_ICONS_TO_SHOW,
+  ICONS_SCROLLING_MULTIPLIER,
+  ICONS_CLASS_NAME,
+  ICON_CLOSE
+} from '../constants';
 
 const StyledIconEditor = styled.div`
   position: fixed;
@@ -93,11 +99,7 @@ const ModalContainer = styled.div`
   overflow: hidden;
 `;
 
-const INITIAL_ICONS_TO_SHOW = 100;
-const ICONS_SCROLLING_MULTIPLIER = 1.5;
-const CLOSE_ICON_NAME = 'close';
-
-function IconEditor({ onIconSelect, onClose }) {
+function IconPicker({ onIconSelect, onClose }) {
   const [icons, setIcons] = useState([]);
   const allIconNamesRef = useRef(useIconNames());
   const containerRef = useRef(null);
@@ -125,8 +127,8 @@ function IconEditor({ onIconSelect, onClose }) {
     <>
       <Overlay />
       <ModalContainer>
-        <CloseButton onClick={onClose}>
-          <span className="material-icons">{CLOSE_ICON_NAME}</span>
+        <CloseButton onClick={onClose} aria-label="close">
+          <span className={ICONS_CLASS_NAME}>{ICON_CLOSE}</span>
         </CloseButton>
         {!icons.length ? (
           <StyledIconEditor>
@@ -136,7 +138,11 @@ function IconEditor({ onIconSelect, onClose }) {
           <StyledIconEditor ref={containerRef} onScroll={handleScroll}>
             {icons.map((icon) => (
               <Icon key={icon} onClick={(e) => onIconSelect(e.target.innerText)}>
-                <span className="material-icons">{icon}</span>
+                <span 
+                  className={ICONS_CLASS_NAME}
+                  role="button"
+                  aria-label="Change icon">{icon}
+                </span>
               </Icon>
             ))}
           </StyledIconEditor>
@@ -146,9 +152,9 @@ function IconEditor({ onIconSelect, onClose }) {
   );
 }
 
-IconEditor.propTypes = {
+IconPicker.propTypes = {
   onIconSelect: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default IconEditor;
+export default IconPicker;

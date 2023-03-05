@@ -2,18 +2,28 @@ import React, { useContext, useRef, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { AppContext } from '../providers/AppContextProvider';
-import { EDIT_INPUT, EDIT_TITLE } from '../store/actions/action-types.js';
 import { useAdjustTextareaSize } from '../hooks/useAdjustTextareaSize';
+import { INPUT_TYPE_TITLE, INPUT_TYPE_TEXT, INPUT_TYPE_ADDITIONAL_TEXT,  } from '../constants';
+import { editTitle, editInput } from '../store/actions/elementActions';
 
 const InputContainer = styled.div`
   display: flex;
   margin-bottom: 8px;
   justify-content: center;
   flex-basis: 100%;
+
+  @media (max-width: 768px) {
+    max-width: 350px;
+  }
+
+  @media (max-width: 375px) {
+    max-width: 280px;
+  }
 `;
 
 const InputField = styled.textarea`
   margin-top: 4px;
+  font-family: roboto, sans-serif;
   border: none;
   background: none;
   font-size: 16px;
@@ -55,10 +65,14 @@ function InputElement({ input, elementId }) {
   const handleInputChange = useCallback(
     (event) => {
       const { value } = event.target;
-      if (input.inputType === 'title') {
-        dispatch({ type: EDIT_TITLE, title: { ...input, value } });
+      if (input.inputType === INPUT_TYPE_TITLE) {
+        dispatch(
+          editTitle({ ...input, value })
+        );
       } else {
-        dispatch({ type: EDIT_INPUT, elementId, inputId: input.id, value });
+        dispatch(
+          editInput(elementId, input.id, value)
+        );
       }
     },
     [dispatch, elementId, input]
@@ -73,6 +87,7 @@ function InputElement({ input, elementId }) {
         value={input.value}
         onChange={handleInputChange}
         inputType={input.inputType}
+        aria-label={input.inputType === INPUT_TYPE_TITLE ? 'Title input' : 'Text input'}
       />
     </InputContainer>
   );
@@ -82,7 +97,7 @@ InputElement.propTypes = {
   input: PropTypes.shape({
     id: PropTypes.number,
     value: PropTypes.string.isRequired,
-    inputType: PropTypes.oneOf(['text', 'additionalText', 'title']).isRequired,
+    inputType: PropTypes.oneOf([INPUT_TYPE_TITLE, INPUT_TYPE_TEXT, INPUT_TYPE_ADDITIONAL_TEXT]).isRequired,
   }).isRequired,
   elementId: PropTypes.number
 };

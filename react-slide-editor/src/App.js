@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { initialState, reducer } from './store/reducer';
 import DndWrapper from './components/DndWrapper';
 import { AppContext } from './providers/AppContextProvider';
+import AppContextProvider from './providers/AppContextProvider';
 import Title from './components/Title';
 import ElementList from './components/ElementList';
 import ExportButtons from './components/ExportButtons';
 import useLocalStorage from './hooks/useLocalStorage';
-import { SET_STORED_STATE } from './store/actions/action-types.js';
+import { setStoredState } from './store/actions/elementActions';
 
 const AppContainer = styled.div`
   color: black;
@@ -18,20 +19,19 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const appRef = useRef(null);
 
-  const [storedState, setStoredState] = useLocalStorage('slideEditorState', null);
+  const [localStorageState, setLocalStorageState] = useLocalStorage('slideEditorState', null);
 
   useEffect(() => {
-    if (storedState) {
-      dispatch({
-        type: SET_STORED_STATE,
-        payload: storedState,
-      });
+    if (localStorageState) {
+      dispatch(
+        setStoredState(localStorageState)
+      );
     }
-  }, [storedState]);
+  }, [localStorageState]);
 
   useEffect(() => {
-    setStoredState(state);
-  }, [state, setStoredState]);
+    setLocalStorageState(state);
+  }, [state, setLocalStorageState]);
 
   return (
     <DndWrapper>

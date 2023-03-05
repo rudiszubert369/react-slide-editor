@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Icon from './Icon';
 import InputElement from './InputElement';
 import useDragAndDrop from '../hooks/useDragAndDrop';
+import { ICON_DRAG_INDICATOR, ICONS_CLASS_NAME } from '../constants';
 
 const ElementContainer = styled.div`
   padding: 8px;
@@ -40,21 +41,17 @@ const IconContainer = styled.div`
 `;
 
 const DragIndicator = styled.span`
-  // position: absolute;
-  // right: 1px;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
-  cursor: pointer;
+  cursor: grab;
 `;
-
-const DRAG_INDICATOR_ICON_NAME = 'drag_indicator';
 
 function Element({ element, index }) {
   const [drag, drop, isDragging] = useDragAndDrop(element, index);
 
   return (
     <ElementContainer isDragging={isDragging} ref={drag}>
-      <DragIndicator className="material-icons">{ DRAG_INDICATOR_ICON_NAME }</DragIndicator>
+      <DragIndicator className={ICONS_CLASS_NAME}>{ICON_DRAG_INDICATOR}</DragIndicator>
       <IconContainer ref={drop}>
         <Icon icon={element.icon} id={element.id} />
       </IconContainer>

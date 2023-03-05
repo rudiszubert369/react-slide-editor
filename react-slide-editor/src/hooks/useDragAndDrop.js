@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { AppContext } from '../providers/AppContextProvider';
-import { MOVE_ELEMENT } from '../store/actions/action-types.js';
+import { moveElement } from '../store/actions/elementActions';
+
 
 function useDragAndDrop(element, index) {
   const { dispatch } = useContext(AppContext);
@@ -20,7 +21,9 @@ function useDragAndDrop(element, index) {
     if (item.id !== element.id) {
       const dragIndex = item.index;
       const hoverIndex = index;
-      dispatch({ type: MOVE_ELEMENT, payload: { sourceIndex: dragIndex, destinationIndex: hoverIndex } });
+      dispatch(
+        moveElement(dragIndex, hoverIndex)
+      );
       item.index = hoverIndex;
     }
   };

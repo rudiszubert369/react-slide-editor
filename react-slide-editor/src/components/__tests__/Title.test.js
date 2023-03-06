@@ -10,13 +10,12 @@ const MockAppContextProvider = ({ children }) => (
 
 describe('Title', () => {
   it('should render the title', () => {
-    const dispatch = jest.fn();
     const title = {
       value: 'Test Title',
       inputType: 'text',
     };
     const { getByText } = render(
-      <MockAppContextProvider value={{ dispatch }}>
+      <MockAppContextProvider>
         <Title title={title} />
       </MockAppContextProvider>
     );

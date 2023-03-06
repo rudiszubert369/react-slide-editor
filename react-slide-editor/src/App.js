@@ -1,19 +1,9 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import styled from 'styled-components';
 import { initialState, reducer } from './store/reducer';
-import DndWrapper from './components/DndWrapper';
 import { AppContext } from './providers/AppContextProvider';
-import AppContextProvider from './providers/AppContextProvider';
-import Title from './components/Title';
-import ElementList from './components/ElementList';
-import ExportButtons from './components/ExportButtons';
 import useLocalStorage from './hooks/useLocalStorage';
 import { setStoredState } from './store/actions/elementActions';
-
-const AppContainer = styled.div`
-  color: black;
-  margin-top: 70px;
-`;
+import AppContent from './components/AppContent';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -33,16 +23,13 @@ function App() {
   }, [state, setLocalStorageState]);
 
   return (
-    <DndWrapper>
-      <AppContext.Provider value={{ state, dispatch }}>
-        <AppContainer ref={appRef}>
-          <Title title={state.title} />
-          <ElementList elements={state.elements} />
-        </AppContainer>
-        <ExportButtons appRef={appRef}/>
-      </AppContext.Provider>
-    </DndWrapper>
+    <AppContext.Provider value={{ state, dispatch }}>
+      <AppContent
+        appRef={appRef}
+        title={state.title}
+        elements={state.elements}
+      />
+    </AppContext.Provider>
   );
 }
-
 export default App;

@@ -1,6 +1,12 @@
 import produce from 'immer';
 import { initialState, reducer } from '../reducer';
-import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from '../actions/actionTypes';
+import {
+  EDIT_INPUT,
+  MOVE_ELEMENT,
+  EDIT_ICON,
+  EDIT_TITLE,
+  SET_STORED_STATE
+} from '../actions/actionTypes';
 
 describe('reducer', () => {
   it('should return the initial state', () => {
@@ -112,5 +118,19 @@ describe('reducer', () => {
     const action = { type: 'UNKNOWN_ACTION_TYPE' };
     const newState = reducer(state, action);
     expect(newState).toEqual(state);
+  });
+
+  it('should handle EDIT_INPUT when the element or input is not found', () => {
+    const elementId = 100;
+    const inputId = 200;
+    const value = 'new value';
+    const action = {
+      type: EDIT_INPUT,
+      elementId,
+      inputId,
+      value,
+    };
+    const newState = reducer(initialState, action);
+    expect(newState).toEqual(initialState);
   });
 });

@@ -7,7 +7,7 @@ const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 80px;
-  padding-top: 50px;
+  padding-top: 100px;
 `;
 
 function Title({ title }) {

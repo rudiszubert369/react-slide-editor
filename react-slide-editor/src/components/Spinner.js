@@ -11,7 +11,7 @@ const StyledSpinnerContainer = styled.div`
 
 function Spinner() {
   return (
-    <StyledSpinnerContainer>
+    <StyledSpinnerContainer data-testid="spinner">
       <ScaleLoader />
     </StyledSpinnerContainer>
   );

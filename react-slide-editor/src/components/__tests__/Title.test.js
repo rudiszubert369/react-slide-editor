@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { AppContext } from '../../App';
+import { AppContext } from '../../providers/AppContextProvider';
 import Title from '../Title';
 
 const dispatch = jest.fn();

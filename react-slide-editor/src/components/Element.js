@@ -55,7 +55,6 @@ function Element({ element, index }) {
       <IconContainer ref={drop}>
         <Icon icon={element.icon} id={element.id} />
       </IconContainer>
-
       <ElementInputs>
         {element.inputs.map((input) => (
           <InputElement key={input.id} input={input} elementId={element.id} />

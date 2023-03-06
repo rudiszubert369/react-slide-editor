@@ -1,5 +1,4 @@
 import produce from 'immer';
-import { updateInputValue } from '../utils/utils';
 import { 
   EDIT_INPUT, 
   MOVE_ELEMENT, 
@@ -58,8 +57,13 @@ export function reducer(state, action) {
   case EDIT_INPUT: {
     const { elementId, inputId, value } = action;
     return produce(state, draft => {
-      const index = draft.elements.findIndex(element => element.id === elementId);
-      draft.elements[index] = updateInputValue(draft.elements[index], inputId, value);
+      const element = draft.elements.find(element => element.id === elementId);
+      if (element) {
+        const input = element.inputs.find(input => input.id === inputId);
+        if (input) {
+          input.value = value;
+        }
+      }
     });
   }
   case MOVE_ELEMENT: {

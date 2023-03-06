@@ -94,12 +94,10 @@ const ModalContainer = styled.div`
   overflow: hidden;
 `;
 
-
-
 function IconPicker({ onIconSelect, onClose }) {
   const { icons, isLoading } = useIconNames();
-
   const containerRef = useRef(null);
+
   useHandleClickOutside(containerRef, onClose);
 
   return (

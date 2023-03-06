@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FONT_FAMILY_PRIMARY, TEXT_MAX_CHARACTERS } from '../constants';
+import { FONT_FAMILY_PRIMARY, INPUT_MAX_CHARACTERS } from '../constants';
 
 const CharacterCountContainer = styled.div`
   position: relative;
@@ -24,12 +24,12 @@ const CharacterCountText = styled.span`
 `;
 
 const CharacterCount = ({ charCount }) => {
-  const exceeded = charCount > TEXT_MAX_CHARACTERS;
-  const recommended = exceeded ? ` Recommended max characters: ${TEXT_MAX_CHARACTERS}` : '';
+  const exceededCharLimit = charCount > INPUT_MAX_CHARACTERS;
+  const recommendedMsg = exceededCharLimit ? ` Recommended max characters: ${INPUT_MAX_CHARACTERS}` : '';
 
   return (
     <CharacterCountContainer>
-      <CharacterCountText>{`${charCount}/${TEXT_MAX_CHARACTERS}${recommended}`}</CharacterCountText>
+      <CharacterCountText>{`${charCount}/${INPUT_MAX_CHARACTERS}${recommendedMsg}`}</CharacterCountText>
     </CharacterCountContainer>
   );
 };

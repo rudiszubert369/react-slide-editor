@@ -18,7 +18,6 @@ const AppContainer = styled.div`
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const appRef = useRef(null);
-
   const [localStorageState, setLocalStorageState] = useLocalStorage('slideEditorState', null);
 
   useEffect(() => {

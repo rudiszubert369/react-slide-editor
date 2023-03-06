@@ -4,7 +4,8 @@ export const INPUT_TYPE_ADDITIONAL_TEXT = 'additionalText';
 export const TITLE_MAX_WIDTH = 600;
 export const TEXT_MAX_WIDTH = 210;
 export const TEXT_MIN_WIDTH = 2;
-export const TEXT_MAX_CHARACTERS = 300;
+export const TEXT_MIN_HEIGHT = 3;
+export const INPUT_MAX_CHARACTERS = 300;
 
 export const DEFAULT_TITLE = 'Insert a title here';
 export const DEFAULT_TEXT = 'Insert text here';

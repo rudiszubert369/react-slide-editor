@@ -10,7 +10,7 @@ function useIconNames() {
       try {
         const response = await axios.get(process.env.REACT_APP_ICON_NAMES_API);
         const data = response.data;
-        const iconNames = data.split('\n').map(line => line.split(' ')[0]);
+        const iconNames = data.split('\n').map(line => line.split(' ')[0]);//Extract first words of every line to get icon names list
         setIcons(iconNames);
         setIsLoading(false);
       } catch (error) {

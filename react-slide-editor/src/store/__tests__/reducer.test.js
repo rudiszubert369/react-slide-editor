@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { initialState, reducer } from '../reducer';
-import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from '../actions/action-types';
+import { EDIT_INPUT, MOVE_ELEMENT, EDIT_ICON, EDIT_TITLE, SET_STORED_STATE } from '../actions/actionTypes';
 
 describe('reducer', () => {
   it('should return the initial state', () => {
@@ -40,7 +40,7 @@ describe('reducer', () => {
       type: MOVE_ELEMENT,
       payload: {
         sourceIndex,
-        destinationIndex,
+        destinationIndex
       },
     };
     const newState = reducer(initialState, action);
@@ -52,16 +52,16 @@ describe('reducer', () => {
   });
 
   it('should handle EDIT_ICON', () => {
-    const elementId = 1;
+    const iconId = 1;
     const icon = 'new icon';
     const action = {
       type: EDIT_ICON,
-      elementId,
-      icon,
+      iconId,
+      icon
     };
     const newState = reducer(initialState, action);
     const expectedState = produce(initialState, draftState => {
-      const element = draftState.elements.find(e => e.id === elementId);
+      const element = draftState.elements.find(e => e.id === iconId);
       if (element) {
         element.icon = icon;
       }
@@ -72,11 +72,11 @@ describe('reducer', () => {
   it('should handle EDIT_TITLE', () => {
     const title = {
       inputType: 'text',
-      value: 'New Title',
+      value: 'New Title'
     };
     const action = {
       type: EDIT_TITLE,
-      title,
+      title
     };
     const newState = reducer(initialState, action);
     const expectedState = produce(initialState, draftState => {
@@ -95,9 +95,9 @@ describe('reducer', () => {
             { id: 1, inputType: 'text', value: 'New Stored Text' },
             { id: 2, inputType: 'additionalText', value: 'New Stored Additional Text' },
           ],
-          icon: 'star',
-        },
-      ],
+          icon: 'star'
+        }
+      ]
     };
     const action = {
       type: SET_STORED_STATE,

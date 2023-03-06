@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Icon from '../Icon';
-import { AppContext } from '../../App';
+import { AppContext } from '../../providers/AppContextProvider';
 
 const dispatch = jest.fn();
 const MockAppContextProvider = ({ children }) => (

@@ -65,7 +65,7 @@ const InputField = styled.textarea`
     isActive &&
     css`
       box-shadow: 0 0 0 1px rgba(61, 49, 55, 0.3);
-    `}
+  `}
 `;
 
 function InputElement({ input, elementId }) {

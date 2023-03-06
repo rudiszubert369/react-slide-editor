@@ -36,13 +36,13 @@ export function editIcon(iconId, icon) {
 export function editTitle(title) {
   return {
     type: EDIT_TITLE,
-    title,
+    title
   };
 }
 
 export function setStoredState(payload) {
   return {
     type: SET_STORED_STATE,
-    payload,
+    payload
   };
 }

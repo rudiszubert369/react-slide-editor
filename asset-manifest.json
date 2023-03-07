@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-slide-editor/static/css/main.ffca34d1.css",
-    "main.js": "/react-slide-editor/static/js/main.481302c1.js",
+    "main.js": "/react-slide-editor/static/js/main.3f2c6eb0.js",
     "static/js/703.290c3cca.chunk.js": "/react-slide-editor/static/js/703.290c3cca.chunk.js",
     "static/js/998.67a16255.chunk.js": "/react-slide-editor/static/js/998.67a16255.chunk.js",
     "static/js/787.47739dfa.chunk.js": "/react-slide-editor/static/js/787.47739dfa.chunk.js",
@@ -17,13 +17,13 @@
     "static/media/material-icons.woff2": "/react-slide-editor/static/media/material-icons.0c35d18bf06992036b69.woff2",
     "index.html": "/react-slide-editor/index.html",
     "main.ffca34d1.css.map": "/react-slide-editor/static/css/main.ffca34d1.css.map",
-    "main.481302c1.js.map": "/react-slide-editor/static/js/main.481302c1.js.map",
+    "main.3f2c6eb0.js.map": "/react-slide-editor/static/js/main.3f2c6eb0.js.map",
     "703.290c3cca.chunk.js.map": "/react-slide-editor/static/js/703.290c3cca.chunk.js.map",
     "998.67a16255.chunk.js.map": "/react-slide-editor/static/js/998.67a16255.chunk.js.map",
     "787.47739dfa.chunk.js.map": "/react-slide-editor/static/js/787.47739dfa.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ffca34d1.css",
-    "static/js/main.481302c1.js"
+    "static/js/main.3f2c6eb0.js"
   ]
 }

@@ -39,5 +39,4 @@ ElementList.propTypes = {
   ).isRequired,
 };
 
-
 export default ElementList;

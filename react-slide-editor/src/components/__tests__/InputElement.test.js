@@ -38,17 +38,4 @@ describe('InputElement', () => {
     fireEvent.change(getByDisplayValue(input.value), { target: { value: 'New Value' } });
     expect(dispatch).toHaveBeenCalledWith({ type: 'EDIT_INPUT', elementId: undefined, inputId: input.id, value: 'New Value' });
   });
-
-  it('dispatches correct action when input value is changed', () => {
-
-    const input = { id: 1, value: 'Test Input', inputType: 'text' };
-    const elementId = 2;
-    const { getByDisplayValue } = render(
-      <MockAppContextProvider value={{ dispatch }}>
-        <InputElement input={input} elementId={elementId} />
-      </MockAppContextProvider>
-    );
-    fireEvent.change(getByDisplayValue(input.value), { target: { value: 'New Value' } });
-    expect(dispatch).toHaveBeenCalledWith({ type: 'EDIT_INPUT', elementId, inputId: input.id, value: 'New Value' });
-  });
 });

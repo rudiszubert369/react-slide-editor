@@ -12,6 +12,7 @@ export const DEFAULT_TEXT = 'Insert text here';
 export const DEFAULT_ADDITIONAL_TEXT = 'Add here your additional text';
 
 export const ICONS_CLASS_NAME = 'material-icons';
+export const ICONS_CODEPOINTS_LINK = process.env.REACT_APP_ICON_NAMES_API;
 export const ICON_DRAG_INDICATOR = 'drag_indicator';
 export const ICON_CLOSE = 'close';
 export const ICON_HEART = 'favorite';

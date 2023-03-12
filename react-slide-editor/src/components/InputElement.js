@@ -12,7 +12,6 @@ import {
   FONT_FAMILY_PRIMARY
 } from '../constants';
 
-
 const InputContainer = styled.div`
   display: flex;
   margin-bottom: 8px;
@@ -75,21 +74,18 @@ function InputElement({ input, elementId }) {
 
   useAdjustTextareaSize(textareaRef, input);
 
-  const handleInputChange = useCallback(
-    (event) => {
-      const { value } = event.target;
-      if (input.inputType === INPUT_TYPE_TITLE) {
-        dispatch(
-          editTitle({ ...input, value })
-        );
-      } else {
-        dispatch(
-          editInput(elementId, input.id, value)
-        );
-      }
-    },
-    [dispatch, elementId, input]
-  );
+  const handleInputChange = useCallback((event) => {
+    const { value } = event.target;
+    if (input.inputType === INPUT_TYPE_TITLE) {
+      dispatch(
+        editTitle({ ...input, value })
+      );
+    } else {
+      dispatch(
+        editInput(elementId, input.id, value)
+      );
+    }
+  }, [dispatch, elementId, input]);
 
   const handleFocus = useCallback(() => {
     setIsActive(true);
@@ -113,9 +109,8 @@ function InputElement({ input, elementId }) {
         isActive={isActive}
         aria-label={input.inputType === INPUT_TYPE_TITLE ? 'Title input' : 'Text input'}
       />
-      {isActive && (
-        <CharacterCount charCount={input.value.length} />
-      )}    </InputContainer>
+      { isActive && <CharacterCount charCount={input.value.length} /> }
+    </InputContainer>
   );
 }
 

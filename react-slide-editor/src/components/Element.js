@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Icon from './Icon';
 import InputElement from './InputElement';
-import useDragAndDrop from '../hooks/useDragAndDrop';
-import { ICON_DRAG_INDICATOR, ICONS_CLASS_NAME } from '../constants';
 import { AppContext } from '../providers/AppContextProvider';
 import { moveElement } from '../store/actions/elementActions';
+import useDragAndDrop from '../hooks/useDragAndDrop';
+import { ICON_DRAG_INDICATOR, ICONS_CLASS_NAME } from '../constants';
 
 const ElementContainer = styled.div`
   padding: 8px;
@@ -87,15 +87,16 @@ function Element({ element, index }) {
   const { dispatch, state } = useContext(AppContext);
   const [showSelectContainer, setShowSelectContainer] = useState(false);
 
-
   const handleIndexChange = (e) => {
     const newIdx = parseInt(e.target.value);
-    dispatch(moveElement(index, newIdx));
+    dispatch(
+      moveElement(index, newIdx)
+    );
     setShowSelectContainer(false);
   };
 
   const handleToggleClick = () => {
-    setShowSelectContainer(!showSelectContainer);
+    setShowSelectContainer(true);
   };
 
   function renderDropdownOptions() {
@@ -127,8 +128,7 @@ function Element({ element, index }) {
       </ElementInputs>
     </ElementContainer>
   );
-}
-  
+} 
 
 Element.propTypes = {
   element: PropTypes.shape({

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ICONS_CODEPOINTS_LINK } from '../constants';
 
 function useIconNames() {
   const [icons, setIcons] = useState([]);
@@ -8,7 +9,7 @@ function useIconNames() {
   useEffect(() => {
     const fetchIcons = async () => {
       try {
-        const response = await axios.get(process.env.REACT_APP_ICON_NAMES_API);
+        const response = await axios.get(ICONS_CODEPOINTS_LINK);
         const data = response.data;
         const iconNames = data.split('\n').map(line => line.split(' ')[0]);//Extract first words of every line to get icon names list
         setIcons(iconNames);
